@@ -1,3 +1,5 @@
+#rich98 (c)
+
 import psutil
 import time
 import tkinter as tk
