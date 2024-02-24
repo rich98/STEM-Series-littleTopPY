@@ -1,4 +1,4 @@
-# littletopPY
+# littleTopPY
 
 `littletopPY` is a simple Python script that mimics some of the functionality of the Linux `top` command. It uses the `psutil` and `tkinter` libraries to gather system and process information and display it in a GUI window.
 
