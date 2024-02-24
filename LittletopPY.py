@@ -1,4 +1,4 @@
-#rich98 (c)
+#rich98 (c) GNU GENERAL PUBLIC LICENSE Version 3.
 
 import psutil
 import time
