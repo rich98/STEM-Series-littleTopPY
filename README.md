@@ -21,4 +21,4 @@ python littletopPY.py
 4. A window titled "littletopPY" will open, displaying the system and process information. The information will update every 5 seconds.
 
 ## License
-This project is licensed under the terms of the MIT license.
+This project is licensed under the terms of the GNU GENERAL PUBLIC LICENSE Version 3.
