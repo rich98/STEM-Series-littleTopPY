@@ -42,17 +42,3 @@ def print_top(text_widget):
     for process in processes[:150]:
         mem_usage = process.info['memory_info'].rss / (1024 ** 2)  # Convert memory usage to MB
         text_widget.insert(tk.END, str(process.info['pid']).ljust(8) + process.info['name'].ljust(25) + str(process.info['cpu_percent']).ljust(10) + f"{mem_usage:.2f}\n")
-
-The main part of the program creates a tkinter window, sets its title to “littletopPY”, creates a Text widget to display the system and process information, and starts the update_top loop. It then enters the tkinter main event loop, which waits for events (like button clicks or key presses) and updates the display.
-
-### Requirements
-This script requires the psutil library to gather system and process information. You can install it using pip:
-
-pip install psutil
-
-### Usage
-You can run this script from the command line like any other Python script:
-
-python littletopPY.py
-
-This will open a new window that displays the total, available, and used memory, as well as the percentage of memory used, and the PID, name, CPU usage, and memory usage of the top 150 processes, updating every 5 seconds.
