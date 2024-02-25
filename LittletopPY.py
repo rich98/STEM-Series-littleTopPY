@@ -1,5 +1,4 @@
 import psutil
-import time
 import tkinter as tk
 import platform
 
@@ -37,7 +36,7 @@ def print_top(text_widget):
     processes = sorted(psutil.process_iter(['pid', 'name', 'cpu_percent', 'memory_info']), key=lambda p: p.info['cpu_percent'], reverse=True)
 
     # Calculate the maximum length of the process names
-    max_name_length = max(len(p.info['name']) for p in processes[:25])
+    max_name_length = max(len(p.info['name']) for p in processes[:50])
 
     text_widget.insert(tk.END, "PID".ljust(8) + "NAME".ljust(max_name_length) + "CPU %".ljust(10) + "MEM USAGE (in MB)\n")
     for process in processes[:25]:
@@ -46,13 +45,16 @@ def print_top(text_widget):
 
 def update_top(text_widget):
     print_top(text_widget)
-    # Update every 5 seconds
-    text_widget.after(5000, update_top, text_widget)
+    # Update every 3 seconds
+    text_widget.after(3000, update_top, text_widget)
 
 root = tk.Tk()
 root.title("littletopPY")  # Set the window title
+
+# Configure the text widget to expand in both x and y directions
 text_widget = tk.Text(root)
-text_widget.pack()
+text_widget.pack(expand=True, fill='both')
+
 update_top(text_widget)
 root.mainloop()
 
