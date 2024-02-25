@@ -4,23 +4,32 @@ import psutil
 import time
 import tkinter as tk
 
-def print_top(text_widget):
-    # Clear the text widget
-    text_widget.delete(1.0, tk.END)
+def print_top(root, text_widget):
+    # Get CPU stats for each core
+    cpu_percentages = psutil.cpu_percent(percpu=True)
+    for i in range(0, len(cpu_percentages), 3):
+        cpu_stats = ', '.join([f"CPU Core {j}: {cpu_percentages[j]}%" for j in range(i, min(i + 3, len(cpu_percentages)))])
+        text_widget.insert(tk.END, cpu_stats + '\n')
 
+    # Add an empty line
+    text_widget.insert(tk.END, '\n')
+
+    # Get network stats
+    net_info = psutil.net_io_counters()
+    net_stats = f"Network Info - Bytes Sent: {net_info.bytes_sent / (1024**3):.2f} GB, Bytes Received: {net_info.bytes_recv / (1024**3):.2f} GB\n\n"
+    text_widget.insert(tk.END, net_stats)
+    
     # Get memory info
     mem_info = psutil.virtual_memory()
-    text_widget.insert(tk.END, f"Total memory: {mem_info.total / (1024**3):.2f} GB\n")
-    text_widget.insert(tk.END, f"Available memory: {mem_info.available / (1024**3):.2f} GB\n")
-    text_widget.insert(tk.END, f"Used memory: {mem_info.used / (1024**3):.2f} GB\n")
-    text_widget.insert(tk.END, f"Memory percentage used: {mem_info.percent}%\n\n")
+    memory_stats = f"Memory Info - Total: {mem_info.total / (1024**3):.2f} GB, Available: {mem_info.available / (1024**3):.2f} GB, Used: {mem_info.used / (1024**3):.2f} GB, Usage Percentage: {mem_info.percent}%\n\n"
+    text_widget.insert(tk.END, memory_stats)
 
-    # Get a list of all running processes
-    processes = psutil.process_iter(['pid', 'name', 'cpu_percent', 'memory_info'])
-
-    # Sort the processes by CPU usage
-    processes = sorted(processes, key=lambda p: p.info['cpu_percent'], reverse=True)
-
+    # Get operating system info
+    text_widget.insert(tk.END, "this scrpt may report Windows 11 as Windows 10. This is not a bug\n")
+    text_widget.insert(tk.END, "answers.microsoft.com – Win11 Shows Win10 as OS\n")
+    
+    os_info = platform.uname()
+    text_widget.insert(tk.END, f"Operating System: {os_info.system}, OS Release: {os_info.release}, OS Version: {os_info.version}\n\n") 
     # Calculate the maximum length of the process names
     max_name_length = max(len(p.info['name']) for p in processes[:150])
 
