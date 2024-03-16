@@ -1,4 +1,4 @@
-# littletopPY
+# STEM Series:littletopPY
 
 Works on Linux and Windows running python
 
